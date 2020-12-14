@@ -1,17 +1,13 @@
-//
-//  BluetoothAudioDistancerApp.swift
-//  BluetoothAudioDistancer
-//
-//  Created by motemen on 2020/12/14.
-//
-
 import SwiftUI
 
 @main
 struct BluetoothAudioDistancerApp: App {
+    @StateObject var blWatcher = BluetoothAudioWatcher()
+    
     var body: some Scene {
-        WindowGroup {
-            ContentView()
+        Settings {
+           ContentView()
+            .environmentObject(blWatcher)
         }
     }
 }
