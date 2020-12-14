@@ -1,0 +1,590 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		08AC11B32587A6CE009FD40A /* BluetoothAudioDistancerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08AC11B22587A6CE009FD40A /* BluetoothAudioDistancerApp.swift */; };
+		08AC11B52587A6CE009FD40A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08AC11B42587A6CE009FD40A /* ContentView.swift */; };
+		08AC11B72587A6D0009FD40A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 08AC11B62587A6D0009FD40A /* Assets.xcassets */; };
+		08AC11BA2587A6D0009FD40A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 08AC11B92587A6D0009FD40A /* Preview Assets.xcassets */; };
+		08AC11C62587A6D0009FD40A /* BluetoothAudioDistancerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08AC11C52587A6D0009FD40A /* BluetoothAudioDistancerTests.swift */; };
+		08AC11D12587A6D1009FD40A /* BluetoothAudioDistancerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08AC11D02587A6D1009FD40A /* BluetoothAudioDistancerUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		08AC11C22587A6D0009FD40A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 08AC11A72587A6CE009FD40A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 08AC11AE2587A6CE009FD40A;
+			remoteInfo = BluetoothAudioDistancer;
+		};
+		08AC11CD2587A6D1009FD40A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 08AC11A72587A6CE009FD40A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 08AC11AE2587A6CE009FD40A;
+			remoteInfo = BluetoothAudioDistancer;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		08AC11AF2587A6CE009FD40A /* BluetoothAudioDistancer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BluetoothAudioDistancer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		08AC11B22587A6CE009FD40A /* BluetoothAudioDistancerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothAudioDistancerApp.swift; sourceTree = "<group>"; };
+		08AC11B42587A6CE009FD40A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		08AC11B62587A6D0009FD40A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		08AC11B92587A6D0009FD40A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		08AC11BB2587A6D0009FD40A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		08AC11BC2587A6D0009FD40A /* BluetoothAudioDistancer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BluetoothAudioDistancer.entitlements; sourceTree = "<group>"; };
+		08AC11C12587A6D0009FD40A /* BluetoothAudioDistancerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BluetoothAudioDistancerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		08AC11C52587A6D0009FD40A /* BluetoothAudioDistancerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothAudioDistancerTests.swift; sourceTree = "<group>"; };
+		08AC11C72587A6D0009FD40A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		08AC11CC2587A6D1009FD40A /* BluetoothAudioDistancerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BluetoothAudioDistancerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		08AC11D02587A6D1009FD40A /* BluetoothAudioDistancerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothAudioDistancerUITests.swift; sourceTree = "<group>"; };
+		08AC11D22587A6D1009FD40A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		08AC11AC2587A6CE009FD40A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		08AC11BE2587A6D0009FD40A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		08AC11C92587A6D1009FD40A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		08AC11A62587A6CE009FD40A = {
+			isa = PBXGroup;
+			children = (
+				08AC11B12587A6CE009FD40A /* BluetoothAudioDistancer */,
+				08AC11C42587A6D0009FD40A /* BluetoothAudioDistancerTests */,
+				08AC11CF2587A6D1009FD40A /* BluetoothAudioDistancerUITests */,
+				08AC11B02587A6CE009FD40A /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		08AC11B02587A6CE009FD40A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				08AC11AF2587A6CE009FD40A /* BluetoothAudioDistancer.app */,
+				08AC11C12587A6D0009FD40A /* BluetoothAudioDistancerTests.xctest */,
+				08AC11CC2587A6D1009FD40A /* BluetoothAudioDistancerUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		08AC11B12587A6CE009FD40A /* BluetoothAudioDistancer */ = {
+			isa = PBXGroup;
+			children = (
+				08AC11B22587A6CE009FD40A /* BluetoothAudioDistancerApp.swift */,
+				08AC11B42587A6CE009FD40A /* ContentView.swift */,
+				08AC11B62587A6D0009FD40A /* Assets.xcassets */,
+				08AC11BB2587A6D0009FD40A /* Info.plist */,
+				08AC11BC2587A6D0009FD40A /* BluetoothAudioDistancer.entitlements */,
+				08AC11B82587A6D0009FD40A /* Preview Content */,
+			);
+			path = BluetoothAudioDistancer;
+			sourceTree = "<group>";
+		};
+		08AC11B82587A6D0009FD40A /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				08AC11B92587A6D0009FD40A /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		08AC11C42587A6D0009FD40A /* BluetoothAudioDistancerTests */ = {
+			isa = PBXGroup;
+			children = (
+				08AC11C52587A6D0009FD40A /* BluetoothAudioDistancerTests.swift */,
+				08AC11C72587A6D0009FD40A /* Info.plist */,
+			);
+			path = BluetoothAudioDistancerTests;
+			sourceTree = "<group>";
+		};
+		08AC11CF2587A6D1009FD40A /* BluetoothAudioDistancerUITests */ = {
+			isa = PBXGroup;
+			children = (
+				08AC11D02587A6D1009FD40A /* BluetoothAudioDistancerUITests.swift */,
+				08AC11D22587A6D1009FD40A /* Info.plist */,
+			);
+			path = BluetoothAudioDistancerUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		08AC11AE2587A6CE009FD40A /* BluetoothAudioDistancer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 08AC11D52587A6D1009FD40A /* Build configuration list for PBXNativeTarget "BluetoothAudioDistancer" */;
+			buildPhases = (
+				08AC11AB2587A6CE009FD40A /* Sources */,
+				08AC11AC2587A6CE009FD40A /* Frameworks */,
+				08AC11AD2587A6CE009FD40A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BluetoothAudioDistancer;
+			productName = BluetoothAudioDistancer;
+			productReference = 08AC11AF2587A6CE009FD40A /* BluetoothAudioDistancer.app */;
+			productType = "com.apple.product-type.application";
+		};
+		08AC11C02587A6D0009FD40A /* BluetoothAudioDistancerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 08AC11D82587A6D1009FD40A /* Build configuration list for PBXNativeTarget "BluetoothAudioDistancerTests" */;
+			buildPhases = (
+				08AC11BD2587A6D0009FD40A /* Sources */,
+				08AC11BE2587A6D0009FD40A /* Frameworks */,
+				08AC11BF2587A6D0009FD40A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				08AC11C32587A6D0009FD40A /* PBXTargetDependency */,
+			);
+			name = BluetoothAudioDistancerTests;
+			productName = BluetoothAudioDistancerTests;
+			productReference = 08AC11C12587A6D0009FD40A /* BluetoothAudioDistancerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		08AC11CB2587A6D1009FD40A /* BluetoothAudioDistancerUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 08AC11DB2587A6D1009FD40A /* Build configuration list for PBXNativeTarget "BluetoothAudioDistancerUITests" */;
+			buildPhases = (
+				08AC11C82587A6D1009FD40A /* Sources */,
+				08AC11C92587A6D1009FD40A /* Frameworks */,
+				08AC11CA2587A6D1009FD40A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				08AC11CE2587A6D1009FD40A /* PBXTargetDependency */,
+			);
+			name = BluetoothAudioDistancerUITests;
+			productName = BluetoothAudioDistancerUITests;
+			productReference = 08AC11CC2587A6D1009FD40A /* BluetoothAudioDistancerUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		08AC11A72587A6CE009FD40A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1220;
+				LastUpgradeCheck = 1220;
+				TargetAttributes = {
+					08AC11AE2587A6CE009FD40A = {
+						CreatedOnToolsVersion = 12.2;
+					};
+					08AC11C02587A6D0009FD40A = {
+						CreatedOnToolsVersion = 12.2;
+						TestTargetID = 08AC11AE2587A6CE009FD40A;
+					};
+					08AC11CB2587A6D1009FD40A = {
+						CreatedOnToolsVersion = 12.2;
+						TestTargetID = 08AC11AE2587A6CE009FD40A;
+					};
+				};
+			};
+			buildConfigurationList = 08AC11AA2587A6CE009FD40A /* Build configuration list for PBXProject "BluetoothAudioDistancer" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 08AC11A62587A6CE009FD40A;
+			productRefGroup = 08AC11B02587A6CE009FD40A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				08AC11AE2587A6CE009FD40A /* BluetoothAudioDistancer */,
+				08AC11C02587A6D0009FD40A /* BluetoothAudioDistancerTests */,
+				08AC11CB2587A6D1009FD40A /* BluetoothAudioDistancerUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		08AC11AD2587A6CE009FD40A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				08AC11BA2587A6D0009FD40A /* Preview Assets.xcassets in Resources */,
+				08AC11B72587A6D0009FD40A /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		08AC11BF2587A6D0009FD40A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		08AC11CA2587A6D1009FD40A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		08AC11AB2587A6CE009FD40A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				08AC11B52587A6CE009FD40A /* ContentView.swift in Sources */,
+				08AC11B32587A6CE009FD40A /* BluetoothAudioDistancerApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		08AC11BD2587A6D0009FD40A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				08AC11C62587A6D0009FD40A /* BluetoothAudioDistancerTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		08AC11C82587A6D1009FD40A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				08AC11D12587A6D1009FD40A /* BluetoothAudioDistancerUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		08AC11C32587A6D0009FD40A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 08AC11AE2587A6CE009FD40A /* BluetoothAudioDistancer */;
+			targetProxy = 08AC11C22587A6D0009FD40A /* PBXContainerItemProxy */;
+		};
+		08AC11CE2587A6D1009FD40A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 08AC11AE2587A6CE009FD40A /* BluetoothAudioDistancer */;
+			targetProxy = 08AC11CD2587A6D1009FD40A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		08AC11D32587A6D1009FD40A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		08AC11D42587A6D1009FD40A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		08AC11D62587A6D1009FD40A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = BluetoothAudioDistancer/BluetoothAudioDistancer.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_ASSET_PATHS = "\"BluetoothAudioDistancer/Preview Content\"";
+				DEVELOPMENT_TEAM = V6X75HS2JP;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = BluetoothAudioDistancer/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				PRODUCT_BUNDLE_IDENTIFIER = net.tokyoenvious.BluetoothAudioDistancer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		08AC11D72587A6D1009FD40A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = BluetoothAudioDistancer/BluetoothAudioDistancer.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_ASSET_PATHS = "\"BluetoothAudioDistancer/Preview Content\"";
+				DEVELOPMENT_TEAM = V6X75HS2JP;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = BluetoothAudioDistancer/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				PRODUCT_BUNDLE_IDENTIFIER = net.tokyoenvious.BluetoothAudioDistancer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		08AC11D92587A6D1009FD40A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = V6X75HS2JP;
+				INFOPLIST_FILE = BluetoothAudioDistancerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				PRODUCT_BUNDLE_IDENTIFIER = net.tokyoenvious.BluetoothAudioDistancerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BluetoothAudioDistancer.app/Contents/MacOS/BluetoothAudioDistancer";
+			};
+			name = Debug;
+		};
+		08AC11DA2587A6D1009FD40A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = V6X75HS2JP;
+				INFOPLIST_FILE = BluetoothAudioDistancerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				PRODUCT_BUNDLE_IDENTIFIER = net.tokyoenvious.BluetoothAudioDistancerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BluetoothAudioDistancer.app/Contents/MacOS/BluetoothAudioDistancer";
+			};
+			name = Release;
+		};
+		08AC11DC2587A6D1009FD40A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = V6X75HS2JP;
+				INFOPLIST_FILE = BluetoothAudioDistancerUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = net.tokyoenvious.BluetoothAudioDistancerUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = BluetoothAudioDistancer;
+			};
+			name = Debug;
+		};
+		08AC11DD2587A6D1009FD40A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = V6X75HS2JP;
+				INFOPLIST_FILE = BluetoothAudioDistancerUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = net.tokyoenvious.BluetoothAudioDistancerUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = BluetoothAudioDistancer;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		08AC11AA2587A6CE009FD40A /* Build configuration list for PBXProject "BluetoothAudioDistancer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				08AC11D32587A6D1009FD40A /* Debug */,
+				08AC11D42587A6D1009FD40A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		08AC11D52587A6D1009FD40A /* Build configuration list for PBXNativeTarget "BluetoothAudioDistancer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				08AC11D62587A6D1009FD40A /* Debug */,
+				08AC11D72587A6D1009FD40A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		08AC11D82587A6D1009FD40A /* Build configuration list for PBXNativeTarget "BluetoothAudioDistancerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				08AC11D92587A6D1009FD40A /* Debug */,
+				08AC11DA2587A6D1009FD40A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		08AC11DB2587A6D1009FD40A /* Build configuration list for PBXNativeTarget "BluetoothAudioDistancerUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				08AC11DC2587A6D1009FD40A /* Debug */,
+				08AC11DD2587A6D1009FD40A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 08AC11A72587A6CE009FD40A /* Project object */;
+}
