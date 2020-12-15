@@ -1,57 +1,50 @@
-//
-//  ContentView.swift
-//  BluetoothAudioDistancer
-//
-//  Created by motemen on 2020/12/14.
-//
-
 import SwiftUI
 
 struct ContentView: View {
-  @EnvironmentObject var blWatcher: BluetoothAudioWatcher
-
-  @State var isCalibrationMode: Bool = false
+  @EnvironmentObject var appState: AppState
 
   var body: some View {
     VStack(alignment: .leading) {
       KeyValueLine(
-        key: "Active device",
-        value: blWatcher.activeBluetoothDevice?.name
+        key: "Input device uid",
+        value: appState.activeAudioDevice?.uid
+      )
+
+      KeyValueLine(
+        key: "Bluetooth device",
+        value: appState.activeBluetoothDevice?.name
       )
 
       KeyValueLine(
         key: "Signal level",
-        value: blWatcher.activeBluetoothDevice?.rssi.description
+        value: appState.activeBluetoothDevice?.signalLevel.description
       )
 
       KeyValueLine(
         key: "Input level set to",
-        value: blWatcher.inputVolumeSetTo?.description
+        value: appState.inputVolumeSetTo?.description
       )
-      .foregroundColor(isCalibrationMode ? .gray : nil)
+      .foregroundColor(appState.isCalibrationMode ? .gray : nil)
 
-      Toggle(isOn: $isCalibrationMode) {
+      Toggle(isOn: $appState.isCalibrationMode) {
         Text("Calibration mode")
       }
-      .disabled(blWatcher.activeBluetoothDevice == nil)
+      .disabled(appState.activeBluetoothDevice == nil)
       .padding(.top)
       .font(.headline)
 
       KeyValueLine(
         key: "Max signal level",
-        value: blWatcher.maxRSSI?.description
+        value: appState.maxLevel?.description
       )
 
       KeyValueLine(
         key: "Min signal level",
-        value: blWatcher.minRSSI?.description
+        value: appState.minLevel?.description
       )
     }
+    .frame(width: 375)
     .padding()
-    .onChange(of: isCalibrationMode) {
-      blWatcher.setCalibrationMode(mode: $0)
-    }
-    .frame(width: 375, height: 150)
   }
 }
 
@@ -61,7 +54,7 @@ private struct KeyValueLine: View {
 
   var body: some View {
     HStack {
-      Text("\(key):").frame(width: 120, alignment: .trailing)
+      Text("\(key):").frame(width: 140, alignment: .trailing)
       Spacer()
       Text(value ?? "-").font( /*@START_MENU_TOKEN@*/.headline /*@END_MENU_TOKEN@*/)
     }
@@ -69,7 +62,15 @@ private struct KeyValueLine: View {
 }
 
 struct ContentView_Previews: PreviewProvider {
+  static let appState: AppState = {
+    let s = AppState()
+    s.activeAudioDevice = AudioDeviceInfo(
+      deviceID: 666, uid: "de-ad-be-ef:input", isBluetooth: true)
+    s.activeBluetoothDevice = BluetoothDeviceInfo(name: "My device", signalLevel: -30)
+    return s
+  }()
+
   static var previews: some View {
-    ContentView()
+    ContentView().environmentObject(appState)
   }
 }

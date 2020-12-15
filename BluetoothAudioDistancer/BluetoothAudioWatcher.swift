@@ -1,50 +1,46 @@
+import Combine
 import CoreAudio
 import Foundation
 import IOBluetooth
 
 class BluetoothAudioWatcher: ObservableObject {
-  struct AudioDeviceInfo {
-    let deviceID: AudioDeviceID
-    let uid: String
-  }
+  var appState: AppState
 
-  struct BluetoothDeviceInfo {
-    let name: String?
-    let rssi: BluetoothHCIRSSIValue
-  }
+  private var cancellables = [AnyCancellable]()
 
-  var timer: Timer?
-  var isCalibrationMode: Bool = false
+  init(appState: AppState) {
+    self.appState = appState
 
-  @Published var activeBluetoothDevice: BluetoothDeviceInfo?
-  // TODO: save (per device uid)
-  @Published var maxRSSI: BluetoothHCIRSSIValue?
-  @Published var minRSSI: BluetoothHCIRSSIValue?
-  @Published var inputVolumeSetTo: Float?
+    cancellables.append(
+      appState.$isCalibrationMode.sink { newMode in
+        if newMode {
+          appState.maxLevel = nil
+          appState.minLevel = nil
+        }
+      }
+    )
 
-  init() {
     start()
   }
 
-  func setCalibrationMode(mode: Bool) {
-    if mode == true {
-      maxRSSI = nil
-      minRSSI = nil
-    }
-
-    isCalibrationMode = mode
+  func start() {
+    cancellables.append(
+      Timer.TimerPublisher(interval: TimeInterval(1), runLoop: .main, mode: .default).autoconnect()
+        .sink { [weak self] _ in
+          self?.update()
+        }
+    )
   }
 
-  func start() {
-    // TODO: fix logic
-    if let deviceInfo = try? getActiveInputDevice() {
-      checkBluetoothDevices(deviceInfo: deviceInfo)
+  func update() {
+    do {
+      try updateActiveInputDevice()
+    } catch let error {
+      print(error)
     }
 
-    timer = Timer.scheduledTimer(withTimeInterval: TimeInterval(1), repeats: true) { [self] (_) in
-      if let deviceInfo = try? getActiveInputDevice() {
-        checkBluetoothDevices(deviceInfo: deviceInfo)
-      }
+    if let audioDevice = appState.activeAudioDevice {
+      updateBluetoothDevice(audioDevice: audioDevice)
     }
   }
 
@@ -59,7 +55,7 @@ class BluetoothAudioWatcher: ObservableObject {
     }
   }
 
-  func getActiveInputDevice() throws -> AudioDeviceInfo? {
+  private func updateActiveInputDevice() throws {
     /// デフォルトの音声入力デバイスを取得
     // https://stackoverflow.com/a/11069595/4344474
     var deviceID: AudioDeviceID = 0
@@ -72,8 +68,6 @@ class BluetoothAudioWatcher: ObservableObject {
       ),
       value: &deviceID
     )
-
-    print("Got deviceID: \(deviceID)")
 
     /// https://stackoverflow.com/a/32018550/4344474
     // Bluetooth かどうか調べる
@@ -88,11 +82,6 @@ class BluetoothAudioWatcher: ObservableObject {
       value: &transportType
     )
 
-    if transportType != kAudioDeviceTransportTypeBluetooth {
-      print("Not a bluetooth device")
-      return nil
-    }
-
     // DeviceUID 知りたい
     var uid: NSString = ""
     try! audioObjectGetProp(
@@ -105,18 +94,16 @@ class BluetoothAudioWatcher: ObservableObject {
       value: &uid
     )
 
-    if let match = try? NSRegularExpression(pattern: "^(.+):input$").firstMatch(
-      in: uid as String, range: NSRange(location: 0, length: uid.length))
-    {
-
-      return AudioDeviceInfo(deviceID: deviceID, uid: uid.substring(with: match.range(at: 1)))
-    } else {
-      print("Unexpected uid: \(uid)")
-      return nil
-    }
+    appState.activeAudioDevice = AudioDeviceInfo(
+      deviceID: deviceID, uid: uid as String,
+      isBluetooth: transportType == kAudioDeviceTransportTypeBluetooth)
   }
 
-  func getActiveBluetoothDevice(deviceInfo: AudioDeviceInfo) -> BluetoothDeviceInfo? {
+  private func getBluetoothDevice(for audioDevice: AudioDeviceInfo) -> BluetoothDeviceInfo? {
+    if audioDevice.isBluetooth == false {
+      return nil
+    }
+
     guard let devices = IOBluetoothDevice.pairedDevices() else {
       return nil
     }
@@ -127,8 +114,8 @@ class BluetoothAudioWatcher: ObservableObject {
       }
 
       if device.isConnected() {
-        if device.addressString == deviceInfo.uid {
-          return BluetoothDeviceInfo(name: device.name, rssi: device.rawRSSI())
+        if device.addressString + ":input" == audioDevice.uid {
+          return BluetoothDeviceInfo(name: device.name, signalLevel: device.rawRSSI())
         }
       }
     }
@@ -136,21 +123,21 @@ class BluetoothAudioWatcher: ObservableObject {
     return nil
   }
 
-  func checkBluetoothDevices(deviceInfo: AudioDeviceInfo) {
-    // XXX
-    activeBluetoothDevice = getActiveBluetoothDevice(deviceInfo: deviceInfo)
+  func updateBluetoothDevice(audioDevice: AudioDeviceInfo) {
+    appState.activeBluetoothDevice = getBluetoothDevice(for: audioDevice)
 
-    guard let bluetoothDevice = activeBluetoothDevice else {
+    guard let bluetoothDevice = appState.activeBluetoothDevice else {
       return
     }
 
-    let rssi = bluetoothDevice.rssi
+    let level = bluetoothDevice.signalLevel
 
-    print("Device: name=\(String(describing: bluetoothDevice.name)) rssi=\(rssi)")
+    // print("Device: name=\(String(describing: bluetoothDevice.name)) level=\(level)")
 
+    /*
     var volume: Float32 = 0
     try! audioObjectGetProp(
-      objectID: deviceInfo.deviceID,
+      objectID: audioDevice.deviceID,
       address: AudioObjectPropertyAddress(
         mSelector: kAudioDevicePropertyVolumeScalar,
         mScope: kAudioDevicePropertyScopeInput,
@@ -159,24 +146,26 @@ class BluetoothAudioWatcher: ObservableObject {
       value: &volume
     )
     print("Volume: \(volume)")
+    */
 
-    if isCalibrationMode {
-      maxRSSI = maxRSSI.map { max($0, rssi) } ?? rssi
-      minRSSI = minRSSI.map { min($0, rssi) } ?? rssi
+    if appState.isCalibrationMode {
+      appState.maxLevel = appState.maxLevel.map { max($0, level) } ?? level
+      appState.minLevel = appState.minLevel.map { min($0, level) } ?? level
     } else {
-      if let minRSSI = minRSSI, let maxRSSI = maxRSSI {
+      if let minRSSI = appState.minLevel, let maxRSSI = appState.maxLevel {
         if maxRSSI != minRSSI {
-          let x = Float(rssi - minRSSI) / Float(maxRSSI - minRSSI)
-          var volume = min(1.0, max(0.0, 1 - pow(1 - x, 2)))
+          let x = Float(level - minRSSI) / Float(maxRSSI - minRSSI)
+          var volume = min(1.0, max(0.0, 1 - pow(1 - x, 2) + 0.2)) // + 0.2 はマージン
           var addr = AudioObjectPropertyAddress(
             mSelector: kAudioDevicePropertyVolumeScalar,
             mScope: kAudioDevicePropertyScopeInput,
             mElement: kAudioObjectPropertyElementMaster
           )
           print("Volume set to: \(volume)")
-          inputVolumeSetTo = volume
+          appState.inputVolumeSetTo = volume
           AudioObjectSetPropertyData(
-            deviceInfo.deviceID, &addr, 0, nil, UInt32(MemoryLayout.size(ofValue: volume)), &volume)
+            audioDevice.deviceID, &addr, 0, nil, UInt32(MemoryLayout.size(ofValue: volume)), &volume
+          )
         }
 
       }

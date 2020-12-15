@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0889B8F42588E7C9002066E0 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0889B8F32588E7C9002066E0 /* AppState.swift */; };
 		08AC11B32587A6CE009FD40A /* BluetoothAudioDistancerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08AC11B22587A6CE009FD40A /* BluetoothAudioDistancerApp.swift */; };
 		08AC11B52587A6CE009FD40A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08AC11B42587A6CE009FD40A /* ContentView.swift */; };
 		08AC11B72587A6D0009FD40A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 08AC11B62587A6D0009FD40A /* Assets.xcassets */; };
@@ -34,6 +35,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0889B8F32588E7C9002066E0 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		08AC11AF2587A6CE009FD40A /* BluetoothAudioDistancer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BluetoothAudioDistancer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		08AC11B22587A6CE009FD40A /* BluetoothAudioDistancerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothAudioDistancerApp.swift; sourceTree = "<group>"; };
 		08AC11B42587A6CE009FD40A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 				08AC11BC2587A6D0009FD40A /* BluetoothAudioDistancer.entitlements */,
 				08AC11B82587A6D0009FD40A /* Preview Content */,
 				08FDFEDD2587AD0500202C3C /* BluetoothAudioWatcher.swift */,
+				0889B8F32588E7C9002066E0 /* AppState.swift */,
 			);
 			path = BluetoothAudioDistancer;
 			sourceTree = "<group>";
@@ -267,6 +270,7 @@
 				08AC11B52587A6CE009FD40A /* ContentView.swift in Sources */,
 				08AC11B32587A6CE009FD40A /* BluetoothAudioDistancerApp.swift in Sources */,
 				08FDFEDE2587AD0500202C3C /* BluetoothAudioWatcher.swift in Sources */,
+				0889B8F42588E7C9002066E0 /* AppState.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
