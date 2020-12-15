@@ -24,8 +24,11 @@ struct ContentView: View {
         value: blWatcher.activeBluetoothDevice?.rssi.description
       )
 
-      KeyValueLine(key: "Input level set to")
-        .foregroundColor(isCalibrationMode ? .gray : nil)
+      KeyValueLine(
+        key: "Input level set to",
+        value: blWatcher.inputVolumeSetTo?.description
+      )
+      .foregroundColor(isCalibrationMode ? .gray : nil)
 
       Toggle(isOn: $isCalibrationMode) {
         Text("Calibration mode")

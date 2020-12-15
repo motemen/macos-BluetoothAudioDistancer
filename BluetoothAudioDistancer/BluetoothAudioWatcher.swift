@@ -20,6 +20,7 @@ class BluetoothAudioWatcher: ObservableObject {
   // TODO: save (per device uid)
   @Published var maxRSSI: BluetoothHCIRSSIValue?
   @Published var minRSSI: BluetoothHCIRSSIValue?
+  @Published var inputVolumeSetTo: Float?
 
   init() {
     start()
@@ -36,12 +37,11 @@ class BluetoothAudioWatcher: ObservableObject {
 
   func start() {
     // TODO: fix logic
-    // TODO: sync to input levels
     if let deviceInfo = try? getActiveInputDevice() {
       checkBluetoothDevices(deviceInfo: deviceInfo)
     }
 
-    timer = Timer.scheduledTimer(withTimeInterval: TimeInterval(3), repeats: true) { [self] (_) in
+    timer = Timer.scheduledTimer(withTimeInterval: TimeInterval(1), repeats: true) { [self] (_) in
       if let deviceInfo = try? getActiveInputDevice() {
         checkBluetoothDevices(deviceInfo: deviceInfo)
       }
@@ -62,18 +62,6 @@ class BluetoothAudioWatcher: ObservableObject {
   func getActiveInputDevice() throws -> AudioDeviceInfo? {
     /// デフォルトの音声入力デバイスを取得
     // https://stackoverflow.com/a/11069595/4344474
-    /*
-        var addr = AudioObjectPropertyAddress(
-            mSelector: kAudioHardwarePropertyDefaultInputDevice,
-            mScope: kAudioObjectPropertyScopeGlobal,
-            mElement: kAudioObjectPropertyElementMaster
-        )
-
-        var deviceID: AudioDeviceID = 0
-        var size = UInt32(MemoryLayout.size(ofValue: deviceID))
-        var status = AudioObjectGetPropertyData(AudioObjectID(kAudioObjectSystemObject), &addr, 0, nil, &size, &deviceID)
-        */
-
     var deviceID: AudioDeviceID = 0
     try! audioObjectGetProp(
       objectID: AudioObjectID(kAudioObjectSystemObject),
@@ -89,17 +77,6 @@ class BluetoothAudioWatcher: ObservableObject {
 
     /// https://stackoverflow.com/a/32018550/4344474
     // Bluetooth かどうか調べる
-    /*
-    var addr = AudioObjectPropertyAddress(
-      mSelector: kAudioDevicePropertyTransportType,
-      mScope: kAudioDevicePropertyScopeInput,
-      mElement: kAudioObjectPropertyElementMaster
-    )
-
-    var transportType: UInt32 = 0
-    var size = UInt32(MemoryLayout.size(ofValue: transportType))
-    status = AudioObjectGetPropertyData(deviceID, &addr, 0, nil, &size, &transportType)
- */
     var transportType: UInt32 = 0
     try! audioObjectGetProp(
       objectID: deviceID,
@@ -117,18 +94,6 @@ class BluetoothAudioWatcher: ObservableObject {
     }
 
     // DeviceUID 知りたい
-    /*
-    addr = AudioObjectPropertyAddress(
-      mSelector: kAudioDevicePropertyDeviceUID,
-      mScope: kAudioDevicePropertyScopeInput,
-      mElement: kAudioObjectPropertyElementMaster
-    )
-
-    var uid: NSString = ""
-    size = UInt32(MemoryLayout.size(ofValue: uid))
-    status = AudioObjectGetPropertyData(deviceID, &addr, 0, nil, &size, &uid)
-*/
-
     var uid: NSString = ""
     try! audioObjectGetProp(
       objectID: deviceID,
@@ -199,16 +164,17 @@ class BluetoothAudioWatcher: ObservableObject {
       maxRSSI = maxRSSI.map { max($0, rssi) } ?? rssi
       minRSSI = minRSSI.map { min($0, rssi) } ?? rssi
     } else {
-      if let min_ = minRSSI, let max_ = maxRSSI {
-        if max_ != min_ {
-          var volume = min(1.0, max(0.0, Float(rssi - min_) / Float((max_ - min_))))
-
+      if let minRSSI = minRSSI, let maxRSSI = maxRSSI {
+        if maxRSSI != minRSSI {
+          let x = Float(rssi - minRSSI) / Float(maxRSSI - minRSSI)
+          var volume = min(1.0, max(0.0, 1 - pow(1 - x, 2)))
           var addr = AudioObjectPropertyAddress(
             mSelector: kAudioDevicePropertyVolumeScalar,
             mScope: kAudioDevicePropertyScopeInput,
             mElement: kAudioObjectPropertyElementMaster
           )
           print("Volume set to: \(volume)")
+          inputVolumeSetTo = volume
           AudioObjectSetPropertyData(
             deviceInfo.deviceID, &addr, 0, nil, UInt32(MemoryLayout.size(ofValue: volume)), &volume)
         }
