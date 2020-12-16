@@ -6,6 +6,8 @@ import IOBluetooth
 class BluetoothAudioWatcher: ObservableObject {
   var appState: AppState
 
+  static let NUM_DATAPOINTS = 5
+
   private var cancellables = [AnyCancellable]()
 
   init(appState: AppState) {
@@ -25,10 +27,27 @@ class BluetoothAudioWatcher: ObservableObject {
 
   func start() {
     cancellables.append(
-      Timer.TimerPublisher(interval: TimeInterval(1), runLoop: .main, mode: .default).autoconnect()
-        .sink { [weak self] _ in
-          self?.update()
+      Timer.TimerPublisher(
+        interval: TimeInterval(1),
+        runLoop: .main,
+        mode: .default
+      )
+      .autoconnect()
+      .map { [weak self] _ in
+        self?.update()
+        return self?.appState.activeBluetoothDevice?.signalLevel
+      }
+      .scan(
+        [BluetoothHCIRSSIValue?](),
+        { ($0 + [$1]).suffix(BluetoothAudioWatcher.NUM_DATAPOINTS) }  // use last 5 datapoints
+      )
+      .sink { [weak self] levels in
+        let validLevels = levels.compactMap({ $0 })
+        if validLevels.count == BluetoothAudioWatcher.NUM_DATAPOINTS {
+          let averageLevel = validLevels.reduce(0, { $0 + Int($1) }) / validLevels.count
+          self?.syncInputVolumeLevel(signalLevel: BluetoothHCIRSSIValue(averageLevel))
         }
+      }
     )
   }
 
@@ -39,9 +58,7 @@ class BluetoothAudioWatcher: ObservableObject {
       print(error)
     }
 
-    if let audioDevice = appState.activeAudioDevice {
-      updateBluetoothDevice(audioDevice: audioDevice)
-    }
+    updateBluetoothDevice()
   }
 
   private func audioObjectGetProp<T>(
@@ -123,51 +140,39 @@ class BluetoothAudioWatcher: ObservableObject {
     return nil
   }
 
-  func updateBluetoothDevice(audioDevice: AudioDeviceInfo) {
-    appState.activeBluetoothDevice = getBluetoothDevice(for: audioDevice)
-
-    guard let bluetoothDevice = appState.activeBluetoothDevice else {
+  private func updateBluetoothDevice() {
+    guard let audioDevice = appState.activeAudioDevice else {
       return
     }
 
-    let level = bluetoothDevice.signalLevel
+    appState.activeBluetoothDevice = getBluetoothDevice(for: audioDevice)
+  }
 
-    // print("Device: name=\(String(describing: bluetoothDevice.name)) level=\(level)")
-
-    /*
-    var volume: Float32 = 0
-    try! audioObjectGetProp(
-      objectID: audioDevice.deviceID,
-      address: AudioObjectPropertyAddress(
-        mSelector: kAudioDevicePropertyVolumeScalar,
-        mScope: kAudioDevicePropertyScopeInput,
-        mElement: kAudioObjectPropertyElementMaster
-      ),
-      value: &volume
-    )
-    print("Volume: \(volume)")
-    */
+  private func syncInputVolumeLevel(signalLevel: BluetoothHCIRSSIValue) {
+    guard let audioDevice = appState.activeAudioDevice else {
+      return
+    }
 
     if appState.isCalibrationMode {
-      appState.maxLevel = appState.maxLevel.map { max($0, level) } ?? level
-      appState.minLevel = appState.minLevel.map { min($0, level) } ?? level
-    } else {
-      if let minRSSI = appState.minLevel, let maxRSSI = appState.maxLevel {
-        if maxRSSI != minRSSI {
-          let x = Float(level - minRSSI) / Float(maxRSSI - minRSSI)
-          var volume = min(1.0, max(0.0, 1 - pow(1 - x, 2) + 0.2)) // + 0.2 はマージン
-          var addr = AudioObjectPropertyAddress(
-            mSelector: kAudioDevicePropertyVolumeScalar,
-            mScope: kAudioDevicePropertyScopeInput,
-            mElement: kAudioObjectPropertyElementMaster
-          )
-          print("Volume set to: \(volume)")
-          appState.inputVolumeSetTo = volume
-          AudioObjectSetPropertyData(
-            audioDevice.deviceID, &addr, 0, nil, UInt32(MemoryLayout.size(ofValue: volume)), &volume
-          )
-        }
+      appState.maxLevel = appState.maxLevel.map { max($0, signalLevel) } ?? signalLevel
+      appState.minLevel = appState.minLevel.map { min($0, signalLevel) } ?? signalLevel
+      return
+    }
 
+    if let minRSSI = appState.minLevel, let maxRSSI = appState.maxLevel {
+      if maxRSSI != minRSSI {
+        let x = Float(signalLevel - minRSSI) / Float(maxRSSI - minRSSI)
+        var volume = min(1.0, max(0.0, (1 - pow(1 - x, 2)) * 1.2))  // * 1.2 はマージン
+        var addr = AudioObjectPropertyAddress(
+          mSelector: kAudioDevicePropertyVolumeScalar,
+          mScope: kAudioDevicePropertyScopeInput,
+          mElement: kAudioObjectPropertyElementMaster
+        )
+        print("Volume set to: \(volume)")
+        appState.inputVolumeSetTo = volume
+        AudioObjectSetPropertyData(
+          audioDevice.deviceID, &addr, 0, nil, UInt32(MemoryLayout.size(ofValue: volume)), &volume
+        )
       }
     }
 
