@@ -161,8 +161,8 @@ class BluetoothAudioWatcher: ObservableObject {
 
     if let minRSSI = appState.minLevel, let maxRSSI = appState.maxLevel {
       if maxRSSI != minRSSI {
-        let x = Float(signalLevel - minRSSI) / Float(maxRSSI - minRSSI)
-        var volume = min(1.0, max(0.0, (1 - pow(1 - x, 2)) * 1.2))  // * 1.2 はマージン
+        let x = min(1.0, max(0.0, Float(signalLevel - minRSSI) / Float(maxRSSI - minRSSI)))
+        var volume = min(1.0, max(0.0, (1 - pow(1 - x, 2)) * 1.25 - 0.2)) // https://www.wolframalpha.com/input/?i=plot+max%28min%28%281+-+%281-x%29%5E2%29+*+1.25+-+0.2%2C+1.0%29%2C+0.0%29+from+x%3D0+to+1
         var addr = AudioObjectPropertyAddress(
           mSelector: kAudioDevicePropertyVolumeScalar,
           mScope: kAudioDevicePropertyScopeInput,
