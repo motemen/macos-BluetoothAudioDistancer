@@ -42,9 +42,21 @@ struct ContentView: View {
         key: "Min signal level",
         value: appState.minLevel?.description
       )
+
+      Divider()
+
+      HStack {
+        Spacer()
+        Button(action: { self.terminateApp() },
+        label: { Text("Quit") })
+      }
     }
     .frame(width: 375)
     .padding()
+  }
+
+  private func terminateApp() {
+    NSApplication.shared.terminate(self)
   }
 }
 

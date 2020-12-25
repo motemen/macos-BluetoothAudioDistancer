@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
+    </dependencies>
+    <scenes>
+        <!--Application-->
+        <scene sceneID="r0m-hr-CEG">
+            <objects>
+                <customObject id="ax7-P6-ic4" customClass="AppDelegate" customModule="BluetoothAudioDistancer" customModuleProvider="target"/>
+                <customObject id="Xpw-oX-D8s" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <application id="0Jl-42-LGp" sceneMemberID="viewController">
+                    <menu key="mainMenu" title="Main Menu" systemMenu="main" id="pJH-mL-csw">
+                        <items>
+                            <menuItem title="BluetoothAudioDistancer" id="2S8-Qg-Mkg">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="BluetoothAudioDistancer" systemMenu="apple" id="6O0-ZY-D5u">
+                                    <items>
+                                        <menuItem title="About BluetoothAudioDistancer" id="Qne-xy-LQf">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="TxW-mk-f3i"/>
+                                        <menuItem title="Quit BluetoothAudioDistancer" keyEquivalent="q" id="6Nf-Rn-dNb"/>
+                                    </items>
+                                </menu>
+                            </menuItem>
+                            <menuItem title="Help" id="asd-Ig-0ML">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="Help" systemMenu="help" id="QV0-BG-Hg2">
+                                    <items>
+                                        <menuItem title="tmp Help" keyEquivalent="?" id="lKL-qq-uGo"/>
+                                    </items>
+                                </menu>
+                            </menuItem>
+                        </items>
+                    </menu>
+                    <connections>
+                        <outlet property="delegate" destination="ax7-P6-ic4" id="mJ2-iy-ijX"/>
+                    </connections>
+                </application>
+            </objects>
+            <point key="canvasLocation" x="75" y="0.0"/>
+        </scene>
+    </scenes>
+</document>
